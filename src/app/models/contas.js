@@ -6,6 +6,7 @@ class Contas extends Model {
     super.init(
       {
         cpf: {
+          primaryKey: true,
           type: Sequelize.INTEGER,
           allowNull: false,
         },
