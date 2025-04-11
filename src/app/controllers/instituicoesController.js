@@ -2,13 +2,13 @@ import Instituicao from '../models/Instituicao.js';
 
 const instituicoesController = {
   async store(req, res) {
-    const { nome, codigo } = req.body;
+    const { nome, instituicao_id } = req.body;
 
-    if (!nome || !codigo) {
+    if (!nome || !instituicao_id) {
       return res.status(400).json({ erro: 'Nome e código são obrigatórios.' });
     }
 
-    const instituicao = await Instituicao.create({ nome, codigo });
+    const instituicao = await Instituicao.create({ nome, instituicao_id });
     return res.status(201).json(instituicao);
   },
 
