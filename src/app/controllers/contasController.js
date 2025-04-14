@@ -1,4 +1,4 @@
-import { user } from 'pg/lib/defaults';
+import Usuarios from '../models/user.js';
 import contas from '../models/contasjs';
 
 const contasController = {

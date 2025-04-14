@@ -1,7 +1,7 @@
-// models/user.js
+
 import Sequelize, { Model } from 'sequelize';
 
-class User extends Model {
+class Usuarios extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -14,7 +14,7 @@ class User extends Model {
       },
       {
         sequelize,
-        tableName: 'users',
+        tableName: 'usuarios',
         timestamps: false,
       }
     );
@@ -27,4 +27,4 @@ class User extends Model {
   }
 }
 
-export default User;
+export default Usuarios;

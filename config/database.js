@@ -1,12 +1,9 @@
-module.exports = {
-  dialect: 'postgres',
-  host: 'localhost',
-  username: 'postgres',
-  password: 'root',
-  database: 'open-finance',
-  define: {
-    timestamps: true,
-    underscored: true,
-    underscoredAll: true,
-  },
-};
+export default {
+  development: {
+    username: 'postgres',
+    password: 'root',
+    database: 'open_finance',
+    host: '127.0.0.1',
+    dialect: 'postgres'
+  }
+}
