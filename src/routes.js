@@ -15,4 +15,7 @@ routes.post('/usuarios', userController.store)
 routes.get('/usuarios', userController.index)
 //routes.get('/usuarios/:cpf', userController.show);  usuario espeficio
 
+routes.post('/contas', contasController.store)
+routes.get('/contas', contasController.index)
+//routes.get('/contas/:cpf', userController.show)
 export default routes;

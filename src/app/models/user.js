@@ -6,9 +6,10 @@ class Usuarios extends Model {
     super.init(
       {
         cpf: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           primaryKey: true,
         },
+        
         nome: Sequelize.STRING,
         data_nascimento: Sequelize.DATE,
       },

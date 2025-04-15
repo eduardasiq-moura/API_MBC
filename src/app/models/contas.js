@@ -34,10 +34,15 @@ class Contas extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, {foreignKey: 'cpf', as: 'usuario',
-    })
-    this.belongsTo(models.Instituicao, { foreignKey: 'instituicao_id', as: 'instituicao',
-    })
+    this.belongsTo(models.Usuarios, {
+      foreignKey: 'cpf',
+      as: 'usuario',
+    });
+
+    this.belongsTo(models.Instituicao, {
+      foreignKey: 'instituicao_id',
+      as: 'instituicao',
+    });
   }
 }
 

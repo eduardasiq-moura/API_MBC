@@ -1,22 +1,38 @@
 import Usuarios from '../models/user.js';
-import contas from '../models/contasjs';
+import Contas from '../models/contas.js';
 
 const contasController = {
   async store(req, res) {
-    const { cpf, nome, saldo } = req.body;
+    const { cpf, nome, saldo, instituicao_id } = req.body
 
-    if (!cpf|| !nome || !saldo) {
-      return res.status(400).json({ erro: 'Os campos são obrigatórios.' });
+    // Validação dos campos obrigatórios
+    if (!cpf || !nome || saldo === undefined || !instituicao_id) {
+      return res.status(400).json({ erro: 'Campos obrigatórios' })
     }
 
-    const contas = await contas.create({ cpf, nome, saldo });
-    return res.status(201).json(contas);
+    try {
+      // Verifica se o usuário existe
+      const usuario = await Usuarios.findOne({ where: { cpf } })
+      if (!usuario) {
+        return res.status(404).json({ erro: 'Usuário não encontrado.' })
+      }
+
+      // Cria a conta
+      const conta = await Contas.create({ cpf, nome, saldo, instituicao_id })
+      return res.status(201).json(conta)
+    } catch (error) {
+      return res.status(500).json({ erro: 'Erro ao criar conta.' + error.message })
+    }
   },
 
   async index(req, res) {
-    const todas = await contas.findAll();
-    return res.json(todas)
+    try {
+      const contas = await Contas.findAll()
+      return res.json(contas)
+    } catch (error) {
+      return res.status(500).json({ erro: 'Erro ao listar contas.' + error.message })
+    }
   }
-};
+}
 
-export default contasController;
+export default contasController

@@ -1,15 +1,23 @@
 import Sequelize from 'sequelize';
-import Instituicao from '../app/models/Instituicao.js'; // ajuste o caminho se necessário
+import dbConfig from '../config/database.js';
 
-const sequelize = new Sequelize('open_finance', 'postgres', 'root', {
-  host: 'localhost',
-  dialect: 'postgres',
-  logging: false,
-});
+import Usuarios from '../app/models/Usuarios.js';
+import Contas from '../app/models/Contas.js';
+import Instituicao from '../app/models/Instituicao.js';
 
-const models = [Instituicao];
+const sequelize = new Sequelize(dbConfig);
+
+const models = [Usuarios, Contas, Instituicao];
 
 // Inicializa os models
 models.forEach(model => model.init(sequelize));
 
-export default sequelize;
+// Executa as associações (caso existam)
+models.forEach(model => {
+  if (model.associate) {
+    model.associate(sequelize.models);
+  }
+});
+
+export { sequelize };
+export default sequelize.models;
