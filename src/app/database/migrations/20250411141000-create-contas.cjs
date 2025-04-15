@@ -20,7 +20,7 @@ module.exports = {
         defaultValue: 0,
       },
       instituicao_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         references: {
           model: 'instituicoes',

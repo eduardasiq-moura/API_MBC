@@ -3,7 +3,7 @@ module.exports = {
     return queryInterface.createTable('instituicoes', { // <-- PLURAL
       instituicao_id: {
         primaryKey: true,
-        type: Sequelize.INTEGER, // <-- mudar de STRING para INTEGER se for usar assim no relacionamento
+        type: Sequelize.STRING, 
         allowNull: false,
       },
       nome: {

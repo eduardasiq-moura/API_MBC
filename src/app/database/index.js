@@ -1,9 +1,8 @@
 import Sequelize from 'sequelize';
-import dbConfig from '../config/database.js';
-
-import Usuarios from '../app/models/Usuarios.js';
-import Contas from '../app/models/Contas.js';
-import Instituicao from '../app/models/Instituicao.js';
+import dbConfig from '../../../config/database.js';
+import Usuarios from '../models/user.js';
+import Contas from '../models/contas.js';
+import Instituicao from '../models/Instituicao.js';
 
 const sequelize = new Sequelize(dbConfig);
 

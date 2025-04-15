@@ -6,7 +6,7 @@ class Instituicao extends Model {
     super.init(
       {
         instituicao_id: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           allowNull: false,
           primaryKey: true,  
         },
