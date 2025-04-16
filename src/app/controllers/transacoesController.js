@@ -98,13 +98,13 @@ const transacoesController = {
   async getExtratoPorCpf(req, res) {
     const { cpf } = req.params;
     const { instituicao_id } = req.query;
-
+  
     try {
+      const where = { cpf };
+      if (instituicao_id) where.instituicao_id = instituicao_id;
+  
       const transacoes = await Transacao.findAll({
-        where: {
-          cpf,
-          ...(instituicao_id && { instituicao_id }),
-        },
+        where,
         include: [
           {
             model: Contas,
@@ -119,12 +119,17 @@ const transacoesController = {
         ],
         order: [['data', 'DESC']],
       });
-
+  
+      if (!transacoes || transacoes.length === 0) {
+        return res.status(404).json({ message: 'Nenhuma transação encontrada.' });
+      }
+  
       return res.json(transacoes);
     } catch (error) {
       return res.status(500).json({ error: 'Erro ao obter extrato.' });
     }
-  },
+  }
+  
 };
 
 export default transacoesController;
