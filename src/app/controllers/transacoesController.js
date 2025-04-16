@@ -1,7 +1,6 @@
-import Transacao from '../models/transacoes.js'
+import Transacao from '../models/transacoes.js';
 import Contas from '../models/contas.js';
 import Instituicao from '../models/Instituicao.js';
-
 
 const realizarTransacao = async (req, res) => {
   const { cpf, instituicao_id, valor, descricao } = req.body;
@@ -62,11 +61,22 @@ const getTransacoes = async (req, res) => {
   }
 };
 
+const show = async (req, res) => {
+  const { transacao_id } = req.params;
 
-
-
+  try {
+    const transacao = await Transacao.findByPk(transacao_id);
+    if (!transacao) {
+      return res.status(404).json({ erro: 'Transação não encontrada.' });
+    }
+    return res.json(transacao);
+  } catch (error) {
+    return res.status(500).json({ erro: 'Erro ao buscar transação: ' + error.message });
+  }
+};
 
 export default {
   realizarTransacao,
-  getTransacoes
+  getTransacoes,
+  show,
 };

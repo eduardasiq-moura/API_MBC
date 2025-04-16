@@ -32,7 +32,22 @@ const contasController = {
     } catch (error) {
       return res.status(500).json({ erro: 'Erro ao listar contas.' + error.message })
     }
+  },
+  
+  async show(req, res) {
+    const { cpf } = req.params;
+  
+    try {
+      const conta = await Contas.findOne({ where: { cpf } });
+      if (!conta) {
+        return res.status(404).json({ erro: 'Conta não encontrada.' });
+      }
+      return res.json(conta);
+    } catch (error) {
+      return res.status(500).json({ erro: 'Erro ao buscar conta: ' + error.message });
+    }
   }
+  
 }
 
 export default contasController
