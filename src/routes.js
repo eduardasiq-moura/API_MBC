@@ -3,34 +3,45 @@ import { Router } from 'express';
 import instituicoesController from './app/controllers/instituicoesController.js';
 import userController from './app/controllers/userController.js';
 import contasController from './app/controllers/contasController.js';
-import transacoesController from './app/controllers/transacoesController.js';  // Importando o controlador de transações
+import transacoesController from './app/controllers/transacoesController.js';
 
 const routes = new Router();
 
-// Rotas para Instituições
+/**
+ * ROTAS DE INSTITUIÇÕES
+ */
 routes.post('/instituicoes', instituicoesController.store);
 routes.get('/instituicoes', instituicoesController.index);
-routes.get('/instituicoes/:id', instituicoesController.show);  // Rota para instituição específica
+routes.get('/instituicoes/:id', instituicoesController.show); // Detalhe de uma instituição
 
-// Rotas para Usuários
+/**
+ * ROTAS DE USUÁRIOS
+ */
 routes.post('/usuarios', userController.store);
 routes.get('/usuarios', userController.index);
-routes.get('/usuarios/:cpf', userController.show);  // Rota para usuário específico
+routes.get('/usuarios/:cpf', userController.show); // Detalhe do usuário
 
-// Rotas para Contas
+/**
+ * ROTAS DE CONTAS
+ */
 routes.post('/contas', contasController.store);
 routes.get('/contas', contasController.index);
-routes.get('/contas/:cpf', contasController.show);  // Rota para contas de um usuário específico
 
-// **Rotas para Transações** (Adicionadas)
-routes.post('/transacoes', transacoesController.realizarTransacao);  // Criar uma nova transação
-routes.get('/transacoes', transacoesController.getTransacoes);  // Ver todas as transações (opcional)
-routes.get('/transacoes/:transacao_id', transacoesController.show);  // Consultar transação específica pelo ID
+// ⚠️ Colocando rota de saldo por instituição antes da rota geral de contas por CPF para evitar conflito de rotas
+routes.get('/usuarios/:cpf/saldo/:instituicao_id', contasController.getSaldoPorInstituicao);
+routes.get('/usuarios/:cpf/saldo', contasController.getSaldoTotal);
 
+// Agora sim a rota de contas por CPF
+routes.get('/contas/:cpf', contasController.show);
 
-routes.get('/saldos/:cpf', contasController.getSaldoTotal);
-routes.get('/saldos/:cpf/:instituicao_id', contasController.getSaldoPorInstituicao);
+/**
+ * ROTAS DE TRANSAÇÕES
+ */
+routes.post('/transacoes', transacoesController.realizarTransacao);
+routes.get('/transacoes/:cpf', transacoesController.getTransacoes);
 
+// ⚠️ Esta rota precisa vir antes de `/:cpf`, senão o Express vai entender `transacoes/123` como transacao_id e não CPF
+routes.get('/transacoes/id/:transacao_id', transacoesController.show);
 routes.get('/transacoes/:cpf', transacoesController.getExtratoPorCpf); // ?instituicao_id=XYZ
 
 export default routes;

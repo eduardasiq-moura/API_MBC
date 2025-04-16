@@ -1,14 +1,20 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('contas', {
+      conta_id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       cpf: {
         type: Sequelize.STRING,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'usuarios', // tabela que representa os usuários
           key: 'cpf',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       nome: {
         type: Sequelize.STRING,
@@ -26,7 +32,9 @@ module.exports = {
           model: 'instituicoes',
           key: 'instituicao_id',
         },
-      }
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
     });
   },
 

@@ -31,6 +31,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      tipo_transacao: {
+        type: Sequelize.ENUM('entrada', 'saida'),
+        allowNull: false,
+      },
       data: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,

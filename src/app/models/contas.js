@@ -4,10 +4,14 @@ class Contas extends Model {
   static init(sequelize) {
     super.init(
       {
+        conta_id: {
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          primaryKey: true,
+        },
         cpf: {
           type: Sequelize.STRING,
           allowNull: false,
-          primaryKey: true,
         },
         nome: {
           type: Sequelize.STRING,
@@ -45,5 +49,6 @@ class Contas extends Model {
     });
   }
 }
+
 
 export default Contas;

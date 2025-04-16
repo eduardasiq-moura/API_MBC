@@ -25,6 +25,10 @@ class Transacao extends Model {
           type: Sequelize.STRING,
           allowNull: true,
         },
+        tipo_transacao: {
+          type: Sequelize.ENUM('entrada', 'saida'),
+          allowNull: false,
+        },
         data: {
           type: Sequelize.DATE,
           allowNull: false,
