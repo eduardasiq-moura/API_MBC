@@ -27,4 +27,10 @@ routes.post('/transacoes', transacoesController.realizarTransacao);  // Criar um
 routes.get('/transacoes', transacoesController.getTransacoes);  // Ver todas as transações (opcional)
 routes.get('/transacoes/:transacao_id', transacoesController.show);  // Consultar transação específica pelo ID
 
+
+routes.get('/saldos/:cpf', contasController.getSaldoTotal);
+routes.get('/saldos/:cpf/:instituicao_id', contasController.getSaldoPorInstituicao);
+
+routes.get('/transacoes/:cpf', transacoesController.getExtratoPorCpf); // ?instituicao_id=XYZ
+
 export default routes;

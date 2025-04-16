@@ -1,8 +1,10 @@
 import Transacao from '../models/transacoes.js';
 import Contas from '../models/contas.js';
 import Instituicao from '../models/Instituicao.js';
+ 
+const transacoesController = {
 
-const realizarTransacao = async (req, res) => {
+async realizarTransacao (req, res) {
   const { cpf, instituicao_id, valor, descricao } = req.body;
 
   try {
@@ -28,9 +30,9 @@ const realizarTransacao = async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: 'Erro ao realizar transação.' });
   }
-};
+},
 
-const getTransacoes = async (req, res) => {
+async getTransacoes (req, res) {
   const { cpf } = req.params;
   const { instituicao } = req.query;
 
@@ -59,9 +61,9 @@ const getTransacoes = async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: 'Erro ao buscar transações.' });
   }
-};
+},
 
-const show = async (req, res) => {
+async show (req, res) {
   const { transacao_id } = req.params;
 
   try {
@@ -73,10 +75,39 @@ const show = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ erro: 'Erro ao buscar transação: ' + error.message });
   }
-};
+},
 
-export default {
-  realizarTransacao,
-  getTransacoes,
-  show,
-};
+async getExtratoPorCpf(req, res) {
+  const { cpf } = req.params;
+  const { instituicao_id } = req.query;
+
+  try {
+    const transacoes = await Transacao.findAll({
+      where: {
+        cpf,
+        ...(instituicao_id && { instituicao_id }),
+      },
+      include: [
+        {
+          model: Contas,
+          as: 'conta',
+          attributes: ['nome'],
+        },
+        {
+          model: Instituicao,
+          as: 'instituicao',
+          attributes: ['nome'],
+        },
+      ],
+      order: [['data', 'DESC']],
+    });
+
+    return res.json(transacoes);
+  } catch (error) {
+    return res.status(500).json({ error: 'Erro ao obter extrato.' });
+  }
+}
+
+}
+
+export default transacoesController
