@@ -29,7 +29,6 @@ Esta API REST simula um banco central no contexto de Open Finance. O objetivo é
 git clone https://github.com/seu-usuario/API_MBC.git
 
 cd API_MBC
-
 ````
 
 ### 2. Instale as dependências
@@ -96,7 +95,7 @@ O ponto de entrada principal é o arquivo `src/server.js`
 ## 📌 **Endpoints da API**
 
 
-### Instituições
+**Instituições**
 
 | Método | Rota                         | Descrição                                      |
 |--------|------------------------------|------------------------------------------------|
@@ -106,7 +105,7 @@ O ponto de entrada principal é o arquivo `src/server.js`
 
 ---
 
-### Usuários
+**Usuários**
 
 | Método | Rota                  | Descrição                              |
 |--------|-----------------------|----------------------------------------|
@@ -116,7 +115,7 @@ O ponto de entrada principal é o arquivo `src/server.js`
 
 ---
 
-### Contas
+**Contas**
 
 | Método | Rota                                                       | Descrição                                                                 |
 |--------|------------------------------------------------------------|---------------------------------------------------------------------------|
@@ -128,7 +127,7 @@ O ponto de entrada principal é o arquivo `src/server.js`
 
 ---
 
-### **Transações**
+**Transações**
 
 | Método | Rota                                             | Descrição                                                       |
 |--------|--------------------------------------------------|-----------------------------------------------------------------|
