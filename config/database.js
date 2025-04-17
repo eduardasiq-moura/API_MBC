@@ -1,5 +1,3 @@
-
-
 export default {
   username: 'postgres',
   password: 'root',
